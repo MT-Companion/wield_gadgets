@@ -1,0 +1,8 @@
+# textdomain: wield_gadgets
+Zoom=
+Announce=
+Never allowed=
+Example Gadget: @1=
+Hey, I am using gadget!=
+Hey, I stopped using gadget!=
+Manage wield gadgets=

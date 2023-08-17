@@ -1,0 +1,7 @@
+{
+    "Lua.diagnostics.globals": [
+        "minetest",
+        "wield_gadgets",
+        "ItemStack"
+    ]
+}
