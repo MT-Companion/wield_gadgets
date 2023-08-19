@@ -8,7 +8,21 @@ Most gadgets supports fast-equiping by rightclicking while holding it. It will b
 
 After equipping one, pressing the zoom key (default: `Z`) will allow you to use a gadget. Refer to the manual of the gadget to know how it works.
 
-## (As an developer) Registering new gadgets
+## (As a server owner) How to test the installation
+
+This mod registers four example gadgets:
+
+* `wield_gadgets:example_zoom`: This gadget, when equipped, enables zoom to the player.
+  * This gadget sets and resets zoom POV on activate and on deactivate, and does nothing by its own on use.
+* `wield_gadgets:example_announce`: This gadget, when used and unused (zoom key released), announces a message to the public chat.
+  * This gadget does nothing on activate and on deactivate.
+  * This gadget pollutes the chatroom. Do not give it to normal players!
+* `wield_gadgets:example_never`: This gadget can never be equipped via normal mean. If somehow equipped, it does nothing.
+* `wield_gadgets:example_while`: This gadget, while the zoom key is held, heals the player 1 HP per globalstep.
+
+All of the above gadgets can eb obtained via `/giveme <name>`.
+
+## (As a developer) Registering new gadgets
 
 The registeration of gadgets is done via the function `wield_gadgets.register_gadget`. The syntax of this function is the same as `minetest.register_craftitem`, but the definition table is a bit different:
 
@@ -18,8 +32,8 @@ The registeration of gadgets is done via the function `wield_gadgets.register_ga
 
     -- This two callbacks can be registered normally.
     -- However, if they are not set, their functions are set to equip this gadget.
-    on_place = wield_gadgets_on_use,
-    on_secondary_use = wield_gadgets_on_use,
+    on_place = wield_gadgets_on_use, -- If pointing to a node
+    on_secondary_use = wield_gadgets_on_use, -- If otherwise
 
     -- Return boolean, false if decline to wear
     -- Default to true
@@ -38,6 +52,9 @@ The registeration of gadgets is done via the function `wield_gadgets.register_ga
     -- Being called when the zoom key is pressed while wearing this gadget
     -- Default to nil
     _wg_on_use = function(player,stack) return end,
+
+    -- Being called on every globalstep when the zoom key is hold
+    _wg_while_use = function(player,stack) return end,
 
     -- Being called when the zoom key is pressed while wearing this gadget
     -- Also called if a player wearing and using this gadget leaved the game

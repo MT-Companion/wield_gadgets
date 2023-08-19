@@ -7,23 +7,32 @@ minetest.register_globalstep(function(dtime)
     for _,player in ipairs(minetest.get_connected_players()) do
         local name = player:get_player_name()
         local controls = player:get_player_control()
-        if controls.zoom ~= (pressed[name] or false) then
-            pressed[name] = (controls.zoom or nil)
-            local inv = player:get_inventory()
-            local gadget = inv:get_stack("gadget",1)
+        local inv = player:get_inventory()
+        local gadget = inv:get_stack("gadget",1)
+        if controls.zoom ~= (pressed[name] and true or false) then
             if not gadget:is_empty() then
+                local gadget_name = gadget:get_name()
                 local def = gadget:get_definition()
                 if controls.zoom then
+                    pressed[name] = gadget_name
                     if def._wg_on_use then
                         def._wg_on_use(player,gadget)
                     end
                     wield_gadgets.log_use(player,gadget)
-                else
+                else -- controls.zoom
+                    pressed[name] = nil
                     if def._wg_on_unuse then
                         def._wg_on_unuse(player,gadget)
                     end
                     wield_gadgets.log_unuse(player,gadget)
                 end
+            else -- not gadget:is_empty()
+                pressed[name] = nil
+            end
+        else -- controls.zoom ~= (pressed[name] and true or false)
+            local def = minetest.registered_craftitems[pressed[name]]
+            if def and def._wg_while_use then
+                def._wg_while_use(player,gadget)
             end
         end
     end
