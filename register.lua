@@ -1,3 +1,4 @@
+-- wield_gadgets/register.lua
 -- Create registeration functions and tables
 
 wield_gadgets.register_gadget = function(name,def)
@@ -7,7 +8,7 @@ wield_gadgets.register_gadget = function(name,def)
     def.groups = def.group or {}
     def.groups.gadgets = 1
 
-    local function on_use(itemstack, placer, pointed_thing)
+    local function on_use(itemstack, placer)
         if wield_gadgets.change_gadget(placer,itemstack) then
             return ItemStack("")
         end

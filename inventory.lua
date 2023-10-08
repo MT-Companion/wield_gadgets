@@ -1,6 +1,7 @@
+-- wield_gadgets/inventory.lua
 -- Register inventory and HUD, and handle inventory actions
 
-minetest.register_on_joinplayer(function(player, last_login)
+minetest.register_on_joinplayer(function(player)
     local inv = player:get_inventory()
     inv:set_size("gadget",1)
 
@@ -48,7 +49,7 @@ minetest.register_allow_player_inventory_action(function(player, action, invento
     end
 end)
 
-minetest.register_on_player_inventory_action(function(player, action, inventory, inventory_info)
+minetest.register_on_player_inventory_action(function(player, action, _, inventory_info)
     if action == "take" then
         local stack = inventory_info.stack
         local def = stack:get_definition()

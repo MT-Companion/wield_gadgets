@@ -1,10 +1,11 @@
+-- wield_gadgets/formspec.lua
 -- Formspec allowing players to wear gadgets
 -- WIP! TODO: Make a nicer formspec and/or intergrate it into existing inventory formspecs
 
 local S = minetest.get_translator("wield_gadgets")
 
 local formspec = "" ..
-    "size[8.01,6.18]" .. 
+    "size[8.01,6.18]" ..
     "list[current_player;gadget;0.1,0.11;1.0,1.0;0]" ..
     "list[current_player;main;0.1,2.28;8.0,1.0;0]" ..
     "list[current_player;main;0.1,3.36;8.0,1.0;8]" ..
@@ -18,7 +19,7 @@ end
 
 minetest.register_chatcommand("wg_form",{
     description = S("Manage wield gadgets"),
-    func = function(name,param)
+    func = function(name)
         wield_gadgets.show_formspec(name)
         return true
     end

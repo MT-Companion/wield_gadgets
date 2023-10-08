@@ -1,3 +1,5 @@
+-- wield_gadgets/init.lua
+
 local MP = minetest.get_modpath("wield_gadgets")
 wield_gadgets = {}
 
